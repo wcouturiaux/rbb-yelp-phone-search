@@ -11,34 +11,42 @@ csv()
 .fromFile(csvFilePath)
 .then((businesses)=>{
     json = businesses
-    json.forEach(element => {
+    /**json.forEach(element => {**/
 
-        let busName = element.businessName;
-        let phone = element.phone;
-        let city = element.city;
-        let state = element.state;
+        let busName = json[0].businessName;
+        let phone = json[0].phone;
+        /**let city = json[0].city;**/
+        let loc= json[0].city+", "+json[0].state;
         let zip_code = ""
 
-        if (phone != "" && element.zipCode == ""){
-            yelpMatch(phone,busName,state,city)
+        if (phone != "" && json[0].zipCode == ""){
+            yelpMatch(phone,busName,loc)
 
         }    
-    });
+    /** });**/
     
 });
 
-function yelpMatch(pnum, name,state, city){
-    client.businessMatch({
+function yelpMatch(pnum, name,loc){
+    client.phoneSearch({
 
-        name: name,
-        phone: pnum,
-        city: city,
-        state: state,
-        match_threshold: "strict"
+        /**term: name,**/
+        phone: pnum
+        /**location: loc**/
 
     }).then(response =>{
         try {
-            fs.appendFileSync('src/csv/dataUpdates.json',JSON.stringify(response.jsonBody));
+            fs.readFile('src/csv/dataUpdates.json', (e,data)=>{
+                data1 = data
+                data1 = data1.slice(0,-2) + "]\\n";
+                data1 = data1.replace(/\n/g,"\\n");
+                let json = JSON.parse(data);
+                json.push(response.jsonBody.businesses[0]);
+                jsonStr = JSON.stringify(json);
+                jsonStr.replace("\\n","\n")
+                fs.writeFileSync('src/csv/dataUpdates.json',jsonStr);
+            });
+            
         }catch(e) {
             console.error(e);
         }
