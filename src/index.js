@@ -25,7 +25,7 @@ csv()
         return element.phone != "" && element.zipCode == ""
       })
 
-    mapLimit(json, 5, yelpMatch).then(handleResponse)
+    mapLimit(json, 5, yelpMatch).then(handleResponse).catch(console.error)
   })
 
 function handleResponse(response) {
