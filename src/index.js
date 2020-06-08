@@ -25,7 +25,7 @@ csv()
         return element.phone != "" && element.zipCode == ""
       })
 
-    mapLimit(json, 1, yelpMatch).then(() => {
+    mapLimit(json, 5, yelpMatch).then(() => {
       console.log('all are done')
     }).catch(console.error)
   })
@@ -37,10 +37,12 @@ function yelpMatch(business) {
       phone: business.phone,
       /**location: loc**/
     }).then(response => {
-      fs.readFile("src/csv/dataUpdates.json", (e, data) => {
+      fs.readFile("src/csv/dataUpdates.json", (e,data) => {
         json = JSON.parse(data)
-        json.push(response.jsonBody.businesses[0])
+        if (response.jsonBody.businesses.length !=0) {
+          json.push(response.jsonBody.businesses[0])
         fs.writeFileSync("src/csv/dataUpdates.json", JSON.stringify(json))
+        }
         console.log('resolving')
         resolve()
       })
