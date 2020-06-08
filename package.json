@@ -4,7 +4,7 @@
   "description": "Pull Business Data from yelp by matching current data available",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/wcouturiaux/rbb-data-clean#readme",
   "dependencies": {
+    "async": "^3.2.0",
     "csvtojson": "^2.0.10",
     "yelp-fusion": "^3.0.0"
   }
