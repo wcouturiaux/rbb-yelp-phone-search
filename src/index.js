@@ -25,24 +25,29 @@ csv()
         return element.phone != "" && element.zipCode == ""
       })
 
-    mapLimit(json, 5, yelpMatch).then(handleResponse).catch(console.error)
+    mapLimit(json, 1, yelpMatch).then(() => {
+      console.log('all are done')
+    }).catch(console.error)
   })
-
-function handleResponse(response) {
-  return new Promise((resolve) => {
-    fs.readFile("src/csv/dataUpdates.json", (e, data) => {
-      json = JSON.parse(data)
-      json.push(response.jsonBody.businesses[0])
-      fs.writeFileSync("src/csv/dataUpdates.json", JSON.stringify(json))
-      resolve()
-    })
-  })
-}
 
 function yelpMatch(business) {
-  return client.phoneSearch({
-    /**term: name,**/
-    phone: business.phone,
-    /**location: loc**/
+  return new Promise((resolve, reject) => {
+    client.phoneSearch({
+      /**term: name,**/
+      phone: business.phone,
+      /**location: loc**/
+    }).then(response => {
+      fs.readFile("src/csv/dataUpdates.json", (e, data) => {
+        json = JSON.parse(data)
+        json.push(response.jsonBody.businesses[0])
+        fs.writeFileSync("src/csv/dataUpdates.json", JSON.stringify(json))
+        console.log('resolving')
+        resolve()
+      })
+    }).catch(error => {
+      console.error(error)
+      reject(error)
+    })
   })
+
 }
