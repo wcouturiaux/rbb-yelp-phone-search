@@ -8,6 +8,7 @@ const csv = require("csvtojson")
 const fs = require("fs")
 const mapLimit = require("async/mapLimit")
 let json
+var results = []
 
 csv()
   .fromFile(csvFilePath)
@@ -25,18 +26,19 @@ csv()
         return element.phone != "" && element.zipCode == ""
       })
 
-    mapLimit(json, 5, yelpMatch).then(() => {
+    mapLimit(json, 1, yelpMatch).then(() => {
       console.log('all are done')
     }).catch(console.error)
   })
 
-function yelpMatch(business) {
+function yelpMatch(business,done) {
   return new Promise((resolve, reject) => {
     client.phoneSearch({
       /**term: name,**/
       phone: business.phone,
       /**location: loc**/
     }).then(response => {
+      results.push(response)
       fs.readFile("src/csv/dataUpdates.json", (e,data) => {
         json = JSON.parse(data)
         if (response.jsonBody.businesses.length !=0) {
@@ -45,6 +47,7 @@ function yelpMatch(business) {
         }
         console.log('resolving')
         resolve()
+        done()
       })
     }).catch(error => {
       console.error(error)
