@@ -3,7 +3,7 @@ const yelp = require("yelp-fusion")
 const client = yelp.client(
   "Iunr7_96olhfyFnglcIhdcZ8XnNr2Czo7M8g8Sw6fbF1XXFLcOA28aFlya4kQDyFKvywg2CmwR1hiwDtUn32Yifl2UCtKhGPLrIrY4s7WtKDWXAaBV1m0K47rNzbXnYx"
 )
-const csvFilePath = "src/csv/rbbDineBlackRaw.csv"
+const csvFilePath = "src/csv/rbbDineBlackRaw-Philly.csv"
 const csv = require("csvtojson")
 const fs = require("fs")
 const mapLimit = require("async/mapLimit")
@@ -39,11 +39,11 @@ function yelpMatch(business,done) {
       /**location: loc**/
     }).then(response => {
       results.push(response)
-      fs.readFile("src/csv/dataUpdates.json", (e,data) => {
+      fs.readFile("src/csv/rbbDineBlackRaw-Philly.json", (e,data) => {
         json = JSON.parse(data)
         if (response.jsonBody.businesses.length !=0) {
           json.push(response.jsonBody.businesses[0])
-        fs.writeFileSync("src/csv/dataUpdates.json", JSON.stringify(json))
+        fs.writeFileSync("src/csv/rbbDineBlackRaw-Philly.json", JSON.stringify(json))
         }
         console.log('resolving')
         resolve()
