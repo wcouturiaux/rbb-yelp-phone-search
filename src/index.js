@@ -1,7 +1,10 @@
 "use-strict"
 const yelp = require("yelp-fusion")
-const client = yelp.client(process.env.YELP_API_KEY)
+require('dotenv').config()
+const YELP_API_KEY = process.env.YELP_API_KEY
+const client = yelp.client(YELP_API_KEY)
 const csvFilePath = "src/csv/rbbDineBlackRaw-jersey2.csv"
+const jsonFilePath = "src/csv/rbbDineBlackRaw-jersey2.json"
 const csv = require("csvtojson")
 const fs = require("fs")
 const mapLimit = require("async/mapLimit")
@@ -37,11 +40,11 @@ function yelpMatch(business,done) {
       /**location: loc**/
     }).then(response => {
       results.push(response)
-      fs.readFile("src/csv/rbbDineBlackRaw-jersey2.json", (e,data) => {
+      fs.readFile(jsonFilePath, (e,data) => {
         json = JSON.parse(data)
         if (response.jsonBody.businesses.length !=0) {
           json.push(response.jsonBody.businesses[0])
-        fs.writeFileSync("src/csv/rbbDineBlackRaw-jersey2.json", JSON.stringify(json))
+        fs.writeFileSync(jsonFilePath, JSON.stringify(json))
         }
         console.log('resolving')
         resolve()
