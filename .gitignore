@@ -1,3 +1,7 @@
 src/csv/test.csv
 node_modules
 .env
+src/csv/rbbDineBlackRaw-jersey2.csv
+src/csv/rbbDineBlackRaw-jersey2.json
+src/csv/rbbDineBlackRaw-southJersey.csv
+src/csv/rbbDineBlackRaw-southJersey.json
