@@ -10,8 +10,8 @@ const YELP_API_KEY = process.env.YELP_API_KEY
 const client = yelp.client(YELP_API_KEY)
 
 /**Set File Paths */
-const csvFilePath = "src/csv/rbbDineBlackRaw-jersey2.csv"
-const jsonFilePath = "src/csv/rbbDineBlackRaw-jersey2.json"
+const csvFilePath = "src/csv/rbbAtlanta.csv"
+const jsonFilePath = "src/csv/rbbAtlanta.json"
 
 csv()
   .fromFile(csvFilePath)
@@ -19,14 +19,17 @@ csv()
     businesses
       .map((element) => {
         return {
-          phone: element.phone
+          phone: element.phone,
+          latitude: element.latitude,
+          longitude: element.longitude
         }
       })
       .filter((element) => {
-        return element.phone != "" && element.zipCode == ""
+        return element.phone != "" && (element.latitude == "" || 
+        element.latitude == "")
       })
 
-    mapLimit(businesses, 1, yelpMatch).then(() => {
+    mapLimit(filteredBus, 1, yelpMatch).then(() => {
       console.log('all are done')
     }).catch(console.error)
   })
