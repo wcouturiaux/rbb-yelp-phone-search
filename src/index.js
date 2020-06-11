@@ -16,7 +16,7 @@ const jsonFilePath = "src/csv/rbbAtlanta.json"
 csv()
   .fromFile(csvFilePath)
   .then((businesses) => {
-    businesses
+    filteredBus = businesses
       .map((element) => {
         return {
           phone: element.phone,
