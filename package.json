@@ -1,21 +1,21 @@
 {
-  "name": "rbb-data-clean",
+  "name": "rbb-yelp-phone-search",
   "version": "1.0.0",
-  "description": "Pull Business Data from yelp by matching current data available",
-  "main": "src/index.js",
+  "description": "Pull Business Data from yelp by phone search",
+  "main": "src/yelpPhoneSearch.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/yelpPhoneSearch.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wcouturiaux/rbb-data-clean.git"
+    "url": "git+https://github.com/wcouturiaux/rbb-yelp-phone-search.git"
   },
   "author": "William L. Couturiaux",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wcouturiaux/rbb-data-clean/issues"
+    "url": "https://github.com/wcouturiaux/rbb-yelp-phone-search.git/issues"
   },
-  "homepage": "https://github.com/wcouturiaux/rbb-data-clean#readme",
+  "homepage": "https://github.com/wcouturiaux/rbb-yelp-phone-search.git#readme",
   "dependencies": {
     "async": "^3.2.0",
     "csvtojson": "^2.0.10",
