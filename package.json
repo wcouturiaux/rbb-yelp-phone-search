@@ -23,6 +23,6 @@
     "yelp-fusion": "^3.0.0"
   },
   "bin":{
-    "yelpPhone": "./yelpPhoneSearc.js"
+    "yelpPhone": "./yelpPhoneSearch.js"
   }
 }
