@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-"use-strict"
-
 /**Requires */
-require('dotenv').config()
+require('dotenv').config({path:'/Users/WillC/rbb-yelp-phone-search/.env'})
 const yelp = require("yelp-fusion")
 const csv = require("csvtojson")
 const fs = require("fs")
@@ -12,8 +10,8 @@ const YELP_API_KEY = process.env.YELP_API_KEY
 const client = yelp.client(YELP_API_KEY)
 
 /**Set File Paths */
-const csvFilePath = "src/csv/rbbAtlanta.csv"
-const jsonFilePath = "src/csv/rbbAtlanta.json"
+const csvFilePath = "/Users/WillC/rbb-yelp-phone-search/src/csv/rbbAtlanta.csv"
+const jsonFilePath = "/Users/WillC/rbb-yelp-phone-search/src/csv/test.json"
 
 csv()
   .fromFile(csvFilePath)
@@ -53,6 +51,7 @@ function yelpMatch(business,done) {
       })
     }).catch(error => {
       console.error(error)
+      console.log(error.response.body)
       reject(error)
     })
   })
