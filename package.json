@@ -2,12 +2,12 @@
   "name": "rbb-yelp-phone-search",
   "version": "1.0.0",
   "description": "Pull Business Data from yelp by phone search",
-  "main": "./yelpPhoneSearch.js",
+  "main": "./src/yelpPhoneSearch.js",
   "bin": {
-    "yelpPhone": "./yelpPhoneSearch.js"
+    "yelpPhone": "./src/yelpPhoneSearch.js"
   },
   "scripts": {
-    "start": "node ./yelpPhoneSearch.js"
+    "start": "node ./src/yelpPhoneSearch.js"
   },
   "repository": {
     "type": "git",
